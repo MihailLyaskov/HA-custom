@@ -1,0 +1,8 @@
+{
+	"mqtt_broker": "192.168.50.109",
+	"mqtt_user": "mike",
+	"mqtt_pass": "142536",
+	"dlink_user": "admin",
+	"dlink_pass": "814993",
+	"dlink_hnap": "http://192.168.50.102/HNAP1"
+}

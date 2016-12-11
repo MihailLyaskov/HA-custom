@@ -1,0 +1,120 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 42.2167
+  longitude: 24.6333
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 182
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Sofia
+
+  customize:
+    switch.dlink_smart_plug_w215:
+      friendly_name: Heater switch and power
+      icon: mdi:power-plug
+    sensor.humidity:
+      friendly_name: Room humidity
+      icon: mdi:water-percent
+    sensor.temperature:
+      friendly_name: Room temperature
+      icon: mdi:temperature-celsius
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+http:
+  # Uncomment this to add a password (recommended!)
+  # api_password: PASSWORD
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+#discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+# Weather Prediction
+sensor:
+  platform: yr
+
+panel_iframe:
+  grafana:
+    title: 'Grafana'
+    url: 'http://192.168.50.109:3000/dashboard/db/power?from=1481424362330&to=1481469817178&theme=light'
+    icon: mdi:database
+
+influxdb:
+  host: 192.168.50.109
+  port: 8086
+  username: home-assistant
+  password: 142536
+  database: home_assistant
+
+mqtt:
+  broker: 192.168.50.109
+  port: 1883
+  client_id: home-assistant-1
+  username: mike
+  password: 142536
+
+
+sensor 2:
+  platform: mqtt
+  name: "Temperature"
+  state_topic: "sensor/temperature"
+  qos: 0
+  unit_of_measurement: "ºC"
+
+sensor 3:
+  platform: mqtt
+  name: "Humidity"
+  state_topic: "sensor/humidity"
+  qos: 0
+  unit_of_measurement: "%"
+
+sensor 4:
+  platform: mqtt
+  name: "Power"
+  state_topic: "sensor/power"
+  qos: 0
+  unit_of_measurement: "W"
+
+sensor 5:
+  platform: mqtt
+  name: "Energy"
+  state_topic: "sensor/energy"
+  qos: 0
+  unit_of_measurement: "W/h"
+
+
+switch:
+  platform: dlink
+  host: 192.168.50.102
+  username: admin
+  password: 814993
+
+group:
+  bedroom:
+    name: "Bedroom"
+    entities:
+      - sensor.humidity
+      - sensor.temperature
+      - sensor.power
+      - sensor.energy
+      - switch.dlink_smart_plug_w215
